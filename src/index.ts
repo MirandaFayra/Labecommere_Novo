@@ -37,6 +37,51 @@ app.get('/users',async (req: Request, res: Response)=> {
 
 //------------- CREATE USER --------------
 
+app.post("/users",(req:Request,res:Response)=>{
+    try {
+        const {id,name,email,password} =req.body
+        
+        if(typeof id !== "string"){
+            res.status(400)
+            throw new Error("'id' inválido, deve ser string")
+        }
+
+        if(typeof name !== "string"){
+            res.status(400)
+            throw new Error("'name' inválido, deve ser string")
+        }
+
+        if(typeof email !== "string"){
+            res.status(400)
+            throw new Error("'email' inválido, deve ser string")
+        }
+
+        if(typeof password !== "string"){
+            res.status(400)
+            throw new Error("'password' inválido, deve ser string")
+        }
+
+        if (id.length < 1 || name.length < 1 ||email.length < 1||password.length < 1) {
+            res.status(400)
+            throw new Error("'id', 'name', 'email', 'password' devem possuir no mínimo 1 caractere")
+        }
+
+        const newUser ={
+            id,
+            name,
+            email,
+            password
+        }
+
+        await 
+
+
+        
+    } catch (error) {
+        
+    }
+})
+
 //------------- CREATE PRODUCT ------------
 
 // ------------ GET ALL PRODUCTS ------------
