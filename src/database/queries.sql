@@ -94,4 +94,16 @@ VALUES ('P001','p001',2),
        ('P003','p003',4)
 ;
 
+-------- QUERY PARA PESQUISAR OS NOMES DAS PESSOAS COMPRADORAS -----------
+
+SELECT purchases.buyer AS purchase_id,users.id AS buyer_id,users.name AS buyer_name,users.email AS buyer_email, purchases.total_price AS total_price,purchases.created_at
+FROM purchases JOIN users ON purchases.buyer = users.id;
+
+-------- QUERY PARA PESQUISAR AS RELAÇÕES DAS COMPRAS -----------
+
+SELECT * FROM purchases
+INNER JOIN purchases_products
+ON purchases_products.purchase_id = purchases.id
+LEFT JOIN products
+ON purchases_products.product_id = products.id;
 
