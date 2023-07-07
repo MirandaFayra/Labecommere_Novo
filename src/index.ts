@@ -78,7 +78,17 @@ app.post("/users",async(req:Request,res:Response)=>{
         res.status(200).send("Banda cadastrada com sucesso")
         
     } catch (error) {
-        
+        console.log(error)
+
+        if(req.statusCode === 200){
+            res.status(500).send("Desculpe, mas parece que ocorreu um erro interno. Por favor, tente novamente mais tarde")
+        }
+
+        if(error instanceof Error) {
+            res.send(error.message)
+        }else{
+            res.send("Erro inesperado")
+        }   
     }
 })
 
