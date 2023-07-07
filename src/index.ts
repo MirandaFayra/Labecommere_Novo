@@ -11,7 +11,28 @@ app.get('/ping', (req: Request, res: Response) => {
     res.send('Pong!')
 })
 
-//----------
+//------------- GET  ALL  USERS ------------
+
+app.get('/users',async (req: Request, res: Response)=> {
+    try {
+        const result = await 
+        
+    } catch (error) {
+        
+    }
+})
+
+//------------- CREATE USER --------------
+
+//------------- CREATE PRODUCT ------------
+
+// ------------ GET ALL PRODUCTS ------------
+
+//------------ EDIT PRODUCT BY ID -----------
+
+//------------ CREATE PRODUCT --------------
+
+//------------ DELETE PURCHASE BY ID ----------
 
 
 //------------- VERIFICANDO O SERVIDOR --------
