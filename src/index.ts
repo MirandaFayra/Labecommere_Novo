@@ -37,7 +37,7 @@ app.get('/users',async (req: Request, res: Response)=> {
 
 //------------- CREATE USER --------------
 
-app.post("/users",(req:Request,res:Response)=>{
+app.post("/users",async(req:Request,res:Response)=>{
     try {
         const {id,name,email,password} =req.body
         
@@ -73,9 +73,9 @@ app.post("/users",(req:Request,res:Response)=>{
             password
         }
 
-        await 
+        await db ("users").insert (newUser)
 
-
+        res.status(200).send("Banda cadastrada com sucesso")
         
     } catch (error) {
         
