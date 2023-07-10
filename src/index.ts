@@ -262,18 +262,17 @@ app.put("/products/:id",async(req:Request,res:Response)=>{
             }
         }
 
-        const [purchase] = await db("purchases").where({id:idToEdit})
+        const [purchase] = await db("products").where({id:idToEdit})
         
         if(purchase){
-            await db("purchases").update(
-                {
-                    id:newId || purchase.id,
-                    name:newName || purchase.name,
-                    price:newPrice || purchase.price,
-                    description:newDescription || purchase.description,
-                    image_url:newImageUrl || purchase.image_url
-                }
-            ).where({ id: idToEdit})
+            await db("products").where({ id: idToEdit }).update({
+                id: newId || purchase.id,
+                name: newName || purchase.name,
+                price: newPrice || purchase.price,
+                description: newDescription || purchase.description,
+                image_url: newImageUrl || purchase.image_url
+            });
+                
         } else {
             res.status(404)
             throw new Error("'id' não encontrada")
