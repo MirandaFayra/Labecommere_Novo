@@ -154,12 +154,87 @@ app.post("/products",async(req:Request,res:Response)=>{
         }   
     }
 })
-
 // ------------ GET ALL PRODUCTS ------------
+
+app.get('/products',async (req: Request, res: Response)=> {
+    try {
+        const result = await db.select("*").from('products');
+        res.status(200).send(result)
+
+    } catch (error) {
+        console.log(error)
+
+        if(req.statusCode === 200){
+            res.status(500).send("Desculpe, mas parece que ocorreu um erro interno. Por favor, tente novamente mais tarde")
+        }
+
+        //Tratamento apenas de erros reais
+        if(error instanceof Error) {
+            res.send(error.message)
+        }else{
+            res.send("Erro inesperado")
+        }     
+    }
+})
 
 //------------ EDIT PRODUCT BY ID -----------
 
 //------------ CREATE PURCHASE --------------
+
+app.post("/purchases",async(req:Request,res:Response)=>{
+    try {
+        const {id,buyer,total_price} =req.body
+        
+        if(typeof id !== "string"){
+            res.status(400)
+            throw new Error("'id' inválido, deve ser string")
+        }
+
+        if(typeof buyer !== "string"){
+            res.status(400)
+            throw new Error("'buyer' inválido, deve ser string")
+        }
+
+        if(typeof total_price !== "number"){
+            res.status(400)
+            throw new Error("'total_price' inválido, deve ser um número")
+        }
+
+        
+        if (id.length < 1 || buyer.length < 1) {
+            res.status(400)
+            throw new Error("'id', 'buyer', devem possuir no mínimo 1 caractere")
+        }
+
+        if(total_price <1){
+            res.status(400)
+            throw new Error("'total_price', devem ser maior que 1")
+        }
+
+        const newPurchase ={
+            id,
+            buyer,
+            total_price 
+        }
+
+        await db ("purchases").insert(newPurchase)
+
+        res.status(200).send("Compra cadastrada com sucesso")
+        
+    } catch (error) {
+        console.log(error)
+
+        if(req.statusCode === 200){
+            res.status(500).send("Desculpe, mas parece que ocorreu um erro interno. Por favor, tente novamente mais tarde")
+        }
+
+        if(error instanceof Error) {
+            res.send(error.message)
+        }else{
+            res.send("Erro inesperado")
+        }   
+    }
+})
 
 //------------ DELETE PURCHASE BY ID ----------
 
