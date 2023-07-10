@@ -2,7 +2,7 @@
 - [X]  Create user
 - [X]  Create product
 - [ ]  Get all products funcionalidades 1 e 2
-- [ ]  Edit product by id
+- [X]  Edit product by id
 - [X]  Create purchase
 - [ ]  Delete purchase by id
 - [ ]  Get purchase by id

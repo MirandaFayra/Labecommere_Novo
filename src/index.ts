@@ -278,7 +278,7 @@ app.put("/products/:id",async(req:Request,res:Response)=>{
             throw new Error("'id' não encontrada")
         }
 
-        res.status(200).send("Atualização de compras realizada com sucesso!")
+        res.status(200).send("Atualização de products realizada com sucesso!")
         
     } catch (error) {
         console.log(error)
