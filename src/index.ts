@@ -157,17 +157,25 @@ app.post("/products",async(req:Request,res:Response)=>{
 // ------------ GET ALL PRODUCTS ------------
 
 app.get('/products',async (req: Request, res: Response)=> {
-    const name = req.params
-    try {
-        if(name){
-            const resultName = await db.select("*").from('products').where({name:name});
-            res.status(200).send(resultName)
-        }else{
-            const result = await db.select("*").from('products');
-            res.status(200).send(result)
+    try{
+        const name = req.query.name
+        let result;
+
+        if (name) {
+          result = await db.select('name').from('products').where({ name: name });
+        } else {
+          result = await db.select('name').from('products');
         }
-        
-    } catch (error) {
+    
+        res.status(200).send(result.map(product => product.name));
+
+        /*const result = await db.select("*").from('products');
+        if(name){
+            const searchProduct = await db.select("*").from('products').where({name: name})
+            res.status(200).send(searchProduct)
+        }*/
+        res.status(200).send(result)
+    }catch (error) {
         console.log(error)
 
         if(req.statusCode === 200){
