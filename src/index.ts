@@ -316,6 +316,24 @@ app.post("/purchases",async(req:Request,res:Response)=>{
 
 //--------------DELETE PURCHASE BY ID --------------
 
+app.delete("/purchases/:id",(req,res)=>{
+    try {
+
+       res.status 
+    } catch (error) {
+        console.log(error)
+
+        if(req.statusCode === 200){
+            res.status(500).send("Desculpe, mas parece que ocorreu um erro interno. Por favor, tente novamente mais tarde")
+        }
+
+        if(error instanceof Error) {
+            res.send(error.message)
+        }else{
+            res.send("Erro inesperado")
+        }   
+    }
+})
 
 //------------ GET PURCHASE BY ID -----------
 app.get("/purchases/:id",async(req:Request,res:Response)=>{
