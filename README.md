@@ -5,4 +5,4 @@
 - [X]  Edit product by id
 - [X]  Create purchase
 - [ ]  Delete purchase by id
-- [ ]  Get purchase by id
+- [X]  Get purchase by id
