@@ -68,6 +68,9 @@ VALUES ('P001','c001',300),
        ('P002','c003',400),
        ('P003','c002',500);
 
+-------- SELECIONANDO PURCHASE -------
+
+SELECT * FROM purchases;
 
 -------- CRIANDO A TABELA DE  RELAÇÃO -------
 

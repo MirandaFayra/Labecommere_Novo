@@ -3,6 +3,6 @@
 - [X]  Create product
 - [ ]  Get all products funcionalidades 1 e 2
 - [ ]  Edit product by id
-- [ ]  Create purchase
+- [X]  Create purchase
 - [ ]  Delete purchase by id
 - [ ]  Get purchase by id

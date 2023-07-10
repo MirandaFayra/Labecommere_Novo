@@ -157,10 +157,16 @@ app.post("/products",async(req:Request,res:Response)=>{
 // ------------ GET ALL PRODUCTS ------------
 
 app.get('/products',async (req: Request, res: Response)=> {
+    const name = req.params
     try {
-        const result = await db.select("*").from('products');
-        res.status(200).send(result)
-
+        if(name){
+            const resultName = await db.select("*").from('products').where({name:name});
+            res.status(200).send(resultName)
+        }else{
+            const result = await db.select("*").from('products');
+            res.status(200).send(result)
+        }
+        
     } catch (error) {
         console.log(error)
 
