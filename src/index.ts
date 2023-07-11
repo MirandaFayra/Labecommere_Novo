@@ -179,7 +179,7 @@ app.get("/products",async (req:Request, res:Response) => {
             const productsResult = await db.select("*").from("products");
             res.status(200).send(productsResult)
         }else{
-            const productsFilteredByName = await db.select("products").where("name", "LIKE", `%${name}%`);
+            const productsFilteredByName = await db("products").where("name", "LIKE", `%${name}%`)
             res.status(200).send(productsFilteredByName)
         }
         
