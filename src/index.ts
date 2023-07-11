@@ -152,7 +152,23 @@ app.post("/products",async(req:Request,res:Response)=>{
 
 //-------------- GET ALL PRODUCTS FUN 1 E FUN 2 ------------------
 
+app.get("/products", (req:Request, res:Response) => {
+    try {
+        
+    } catch (error) {
+        console.log(error)
 
+        if(req.statusCode === 200){
+            res.status(500).send("Desculpe, mas parece que ocorreu um erro interno. Por favor, tente novamente mais tarde")
+        }
+
+        if(error instanceof Error) {
+            res.send(error.message)
+        }else{
+            res.send("Erro inesperado")
+        }  
+    }
+})
 //------------ EDIT PRODUCT BY ID -----------
 app.put("/products/:id",async(req:Request,res:Response)=>{
     try {
