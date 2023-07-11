@@ -7,11 +7,6 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-//--------- VERIFICANDO O FUNCIONAMENTO ----------
-app.get('/ping', (req: Request, res: Response) => {
-    res.send('Pong!')
-})
-
 //------------- GET  ALL  USERS ------------
 
 app.get('/users',async (req: Request, res: Response)=> {
@@ -154,42 +149,9 @@ app.post("/products",async(req:Request,res:Response)=>{
         }   
     }
 })
-// ------------ GET ALL PRODUCTS ------------
 
-app.get('/products',async (req: Request, res: Response)=> {
-    try{
-        const name = req.query.name
-        let result;
+//-------------- GET ALL PRODUCTS FUN 1 E FUN 2 ------------------
 
-        if (name) {
-          result = await db.select('name').from('products').where({ name: name });
-        } else {
-          result = await db.select('name').from('products');
-        }
-    
-        res.status(200).send(result);
-
-        /*const result = await db.select("*").from('products');
-        if(name){
-            const searchProduct = await db.select("*").from('products').where({name: name})
-            res.status(200).send(searchProduct)
-        }*/
-        res.status(200).send(result)
-    }catch (error) {
-        console.log(error)
-
-        if(req.statusCode === 200){
-            res.status(500).send("Desculpe, mas parece que ocorreu um erro interno. Por favor, tente novamente mais tarde")
-        }
-
-        //Tratamento apenas de erros reais
-        if(error instanceof Error) {
-            res.send(error.message)
-        }else{
-            res.send("Erro inesperado")
-        }     
-    }
-})
 
 //------------ EDIT PRODUCT BY ID -----------
 app.put("/products/:id",async(req:Request,res:Response)=>{
@@ -294,6 +256,7 @@ app.put("/products/:id",async(req:Request,res:Response)=>{
         }   
     }
 })
+
 //------------ CREATE PURCHASE --------------
 
 app.post("/purchases",async(req:Request,res:Response)=>{
@@ -351,9 +314,68 @@ app.post("/purchases",async(req:Request,res:Response)=>{
     }
 })
 
-//------------ DELETE PURCHASE BY ID ----------
+//--------------DELETE PURCHASE BY ID --------------
 
-//------------ GET PURCHASE BY ID -------------
+app.delete("/purchases/:id",async(req:Request,res:Response)=>{
+    try {
+        const idToDelete = req.params.id
+        const [ purchase ] = await db.select("*").from("purchases").where({ id: idToDelete })
+
+        if (!purchase) {
+            res.status(404)
+            throw new Error("'id' não encontrada")
+        }
+        await db.delete().from("purchases").where({ id: idToDelete })
+       res.status(200).send("Pedido cancelado com sucesso")
+    } catch (error) {
+        console.log(error)
+
+        if(req.statusCode === 200){
+            res.status(500).send("Desculpe, mas parece que ocorreu um erro interno. Por favor, tente novamente mais tarde")
+        }
+
+        if(error instanceof Error) {
+            res.send(error.message)
+        }else{
+            res.send("Erro inesperado")
+        }   
+    }
+})
+
+//------------ GET PURCHASE BY ID -----------
+app.get("/purchases/:id",async(req:Request,res:Response)=>{
+    try {
+        const idToSearch = req.params.id
+        
+
+        const [purchase] = await db("purchases").where({id:idToSearch})
+        
+        if(purchase){
+            const result = await db.select("*").from("purchases")
+            res.status(200).send(result)
+        } else {
+            res.status(404)
+            throw new Error("'id' não encontrada")
+        }        
+    } catch (error) {
+        console.log(error)
+
+        if(req.statusCode === 200){
+            res.status(500).send("Desculpe, mas parece que ocorreu um erro interno. Por favor, tente novamente mais tarde")
+        }
+
+        if(error instanceof Error) {
+            res.send(error.message)
+        }else{
+            res.send("Erro inesperado")
+        }   
+    }
+})
+
+//--------- VERIFICANDO O FUNCIONAMENTO ----------
+app.get('/ping', (req: Request, res: Response) => {
+    res.send('Pong!')
+})
 
 //------------- VERIFICANDO O SERVIDOR --------
 app.listen(3003, () => {
