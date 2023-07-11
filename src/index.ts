@@ -152,8 +152,36 @@ app.post("/products",async(req:Request,res:Response)=>{
 
 //-------------- GET ALL PRODUCTS FUN 1 E FUN 2 ------------------
 
-app.get("/products", (req:Request, res:Response) => {
+app.get("/products",async (req:Request, res:Response) => {
     try {
+        const name = req.query.name;
+        //const productsResult = await db.select("*").from("products");
+        //const productsFilteredByName = await db.select("*").from("products").where("name", "LIKE", `%${name}%`);
+        //const productsFilteredByName = await db.raw(
+            //`SELECT * FROM products 
+            //WHERE name LIKE '%${name}%'`)
+
+           // const productsResult = await db.select("*").from("products");
+
+            //const productsFiltred = productsResult.filter(product => product.name === name)
+
+
+        /*if(name){
+            const productsFilteredByName = await db.select("*").from("products").where("name", "LIKE", `%${name}%`);
+            console.log("cai aqui")
+            res.status(200).send(productsFilteredByName)
+
+        }else{
+            const productsResult = await db.select("*").from("products");
+            res.status(200).send(productsResult)
+        }*/
+        if (name === undefined) {
+            const productsResult = await db.select("*").from("products");
+            res.status(200).send(productsResult)
+        }else{
+            const productsFilteredByName = await db("products").where("name", "LIKE", `%${name}%`)
+            res.status(200).send(productsFilteredByName)
+        }
         
     } catch (error) {
         console.log(error)
