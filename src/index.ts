@@ -152,8 +152,15 @@ app.post("/products",async(req:Request,res:Response)=>{
 
 //-------------- GET ALL PRODUCTS FUN 1 E FUN 2 ------------------
 
-app.get("/products", (req:Request, res:Response) => {
+app.get("/products",async (req:Request, res:Response) => {
     try {
+        const name = req.params.name
+
+        const productsResult  = await db.select("*").from("products")
+
+        const 
+
+        res.status(200).send(productsResult)
         
     } catch (error) {
         console.log(error)
