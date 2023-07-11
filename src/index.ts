@@ -319,10 +319,13 @@ app.post("/purchases",async(req:Request,res:Response)=>{
 app.delete("/purchases/:id",async(req:Request,res:Response)=>{
     try {
         const idToDelete = req.params.id
-        const [purchase] = await db("products").where({id:idToDelete})
-        if(purchase){
-            await db.delete().from("purchases").where({ id:idToDelete})
+        const [ purchase ] = await db.select("*").from("purchases").where({ id: idToDelete })
+
+        if (!purchase) {
+            res.status(404)
+            throw new Error("'id' não encontrada")
         }
+        await db.delete().from("purchases").where({ id: idToDelete })
        res.status(200).send("Pedido cancelado com sucesso")
     } catch (error) {
         console.log(error)
