@@ -316,10 +316,14 @@ app.post("/purchases",async(req:Request,res:Response)=>{
 
 //--------------DELETE PURCHASE BY ID --------------
 
-app.delete("/purchases/:id",(req,res)=>{
+app.delete("/purchases/:id",async(req:Request,res:Response)=>{
     try {
-
-       res.status 
+        const idToDelete = req.params.id
+        const [purchase] = await db("products").where({id:idToDelete})
+        if(purchase){
+            await db.delete().from("purchases").where({ id:idToDelete})
+        }
+       res.status(200).send("Pedido cancelado com sucesso")
     } catch (error) {
         console.log(error)
 
