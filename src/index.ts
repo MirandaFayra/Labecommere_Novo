@@ -32,7 +32,7 @@ app.get('/users',async (req: Request, res: Response)=> {
 
 //------------- CREATE USER --------------
 
-app.post("/users",async(req:Request,res:Response)=>{
+/*app.post("/users",async(req:Request,res:Response)=>{
     try {
         const {id,name,email,password} =req.body
         
@@ -85,7 +85,7 @@ app.post("/users",async(req:Request,res:Response)=>{
             res.send("Erro inesperado")
         }   
     }
-})
+})*/
 
 //------------- CREATE PRODUCT ------------
 
