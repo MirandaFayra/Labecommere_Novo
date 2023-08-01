@@ -4,7 +4,6 @@ import { db } from "../../database/connection"
 export const getAllProducts = async (req:Request, res:Response) => {
     try {
         const name = req.query.name
-
         if (name === undefined) {
             const productsResult = await db.select("*").from("products");
             res.status(200).send(productsResult)
