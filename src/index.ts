@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express'
 import cors from 'cors'
 import {db} from './database/connection'
+import { creatNewUser } from './endpoints/users/createNewUser'
 
 const app = express()
 
@@ -31,6 +32,8 @@ app.get('/users',async (req: Request, res: Response)=> {
 })
 
 //------------- CREATE USER --------------
+
+app.post("/users",creatNewUser)
 
 /*app.post("/users",async(req:Request,res:Response)=>{
     try {

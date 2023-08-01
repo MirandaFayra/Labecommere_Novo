@@ -1,11 +1,12 @@
 import { Request, Response } from "express"
 import { db } from "../../database/connection"
+import { TUser } from "../../types/types"
 
 export const creatNewUser = async(req:Request,res:Response)=>{
     try {
         const {id,name,email,password} =req.body
         
-        const newUser ={
+        const newUser: TUser ={
             id,
             name,
             email,
