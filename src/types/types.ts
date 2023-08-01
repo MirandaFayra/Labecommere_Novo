@@ -10,7 +10,7 @@ export type TProducts ={
     name:string,
     price:string,
     description:string,
-    imageUrl:string
+    image_url:string
 }
 
 export type TPurchases ={

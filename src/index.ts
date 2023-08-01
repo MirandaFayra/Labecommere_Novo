@@ -3,6 +3,7 @@ import cors from 'cors'
 import {db} from './database/connection'
 import { creatNewUser } from './endpoints/users/createNewUser'
 import { getAllUsers } from './endpoints/users/getAllUsers'
+import { createNewProduct } from './endpoints/products/createNewProduct'
 
 const app = express()
 
@@ -15,8 +16,9 @@ app.get("/users",getAllUsers)
 app.post("/users",creatNewUser)
 
 //------------- CREATE PRODUCT ------------
+app.post("/products",createNewProduct)
 
-app.post("/products",async(req:Request,res:Response)=>{
+/*app.post("/products",async(req:Request,res:Response)=>{
     try {
         const {id,name,price,description,image_url} =req.body
         
@@ -75,7 +77,7 @@ app.post("/products",async(req:Request,res:Response)=>{
             res.send("Erro inesperado")
         }   
     }
-})
+})*/
 
 //-------------- GET ALL PRODUCTS FUN 1 E FUN 2 ------------------
 
